@@ -98,3 +98,28 @@ python ETL.py \
   --min-chars 500 \
   --out dataset_pt.jsonl.gz
 ```
+
+PIPELINE OVERVIEW:
+┌──────────┐
+│ Dataset  │  (HF Streaming)
+└────┬─────┘
+     ↓
+┌──────────┐
+│ Cleaning │  (normalize, strip, regex)
+└────┬─────┘
+     ↓
+┌───────────────┐
+│ Lang Filter   │  (pt/en/es...)
+└────┬──────────┘
+     ↓
+┌──────────┐
+│ Sample   │  (deterministic hash)
+└────┬─────┘
+     ↓
+┌───────────────┐
+│ Tokenization   │
+└────┬──────────┘
+     ↓
+┌───────────────┐
+│ JSONL.GZ File │
+└───────────────┘
