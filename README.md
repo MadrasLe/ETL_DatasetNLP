@@ -48,18 +48,19 @@ you can duplicate and adapt it for any dataset you want to ETL.
 
 ```bash
 pip install -r requirements.txt
+```
 
  How to Run (CLI Examples)
 
 Run with defaults:
-
+```bash
 python ETL.py
-
+```
 
 Specify a different dataset:
-
+```bash
 python ETL.py --repo allenai/c4 --split train
-
+```
 
 Collect 100M tokens:
 
