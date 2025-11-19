@@ -1,3 +1,8 @@
+![Python](https://img.shields.io/badge/python-3.10+-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![HF Datasets](https://img.shields.io/badge/HuggingFace-Datasets-yellow.svg)
+![Status](https://img.shields.io/badge/status-active-brightgreen.svg)
+
 # ETL_DatasetNLP
 A collection of high-quality ETL pipelines for NLP and LLM training datasets.  
 This repository provides **simple, scalable and production-grade** data collectors using:
