@@ -63,27 +63,27 @@ python ETL.py --repo allenai/c4 --split train
 ```
 
 Collect 100M tokens:
-
+```bash
 python ETL.py --tokens 100000000
-
+```
 
 Change sampling probability:
-
+```bash
 python ETL.py --sample 0.10
-
+```
 
 Disable language filtering:
-
+```bash
 python ETL.py --lang None
-
+```
 
 Set minimum text length:
-
+```bash
 python ETL.py --min-chars 300
-
+```
 
 Full example:
-
+```bash
 python ETL.py \
   --repo HuggingFaceFW/fineweb-edu \
   --split train \
@@ -92,3 +92,4 @@ python ETL.py \
   --sample 0.20 \
   --min-chars 500 \
   --out dataset_pt.jsonl.gz
+```
