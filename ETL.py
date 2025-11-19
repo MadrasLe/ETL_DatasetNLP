@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-FineWeb Collector - Single File + CLI Version
+Single File + CLI Version
 """
 
 import os, json, gzip, random, hashlib, time
@@ -19,43 +19,43 @@ from transformers import AutoTokenizer
 # ------------------------------------------------
 def get_args():
     p = argparse.ArgumentParser(
-        description="Coletor de dados do FineWeb com filtros, amostragem e output .gz"
+        description="FineWeb data collector with filters, sampling, and .gz output"
     )
 
     p.add_argument("--repo", "-r", type=str,
                    default="HuggingFaceFW/fineweb-edu",
-                   help="ID do dataset no HuggingFace")
+                   help="HuggingFace dataset ID")
 
     p.add_argument("--split", "-s", type=str, default="train",
-                   help="Split do dataset")
+                   help="Dataset split")
 
     p.add_argument("--out", "-o", type=str,
-                   default="saida_coletada.jsonl.gz",
-                   help="Arquivo de saída")
+                   default="collected_output.jsonl.gz",
+                   help="Output file")
 
     p.add_argument("--tokens", "-t", type=int,
                    default=50_000_000,
-                   help="Quantidade alvo de tokens")
+                   help="Target token count")
 
     p.add_argument("--sample", "-p", type=float,
                    default=0.20,
-                   help="Probabilidade de amostragem (0-1)")
+                   help="Sampling probability (0-1)")
 
     p.add_argument("--lang", "-l", type=str, default="pt",
-                   help="Idioma esperado (ou None para desativar)")
+                   help="Expected language (or None to disable)")
 
     p.add_argument("--min-chars", type=int, default=500)
     p.add_argument("--max-chars", type=int, default=200_000)
 
     p.add_argument("--checkpoint", type=str,
                    default="checkpoint_state.json",
-                   help="Arquivo de checkpoint")
+                   help="Checkpoint file")
 
     return p.parse_args()
 
 
 # ------------------------------------------------
-# FUNÇÕES INTERNAS
+# INTERNAL FUNCTIONS
 # ------------------------------------------------
 
 def deterministic_sample(text, p):
@@ -95,18 +95,18 @@ def save_state(path, state):
 
 
 # ------------------------------------------------
-# PIPELINE PRINCIPAL
+# MAIN PIPELINE
 # ------------------------------------------------
 
 def main():
     args = get_args()
 
-    print("== FineWeb Collector (CLI) ==")
-    print(f"[INFO] Dataset:     {args.repo}")
-    print(f"[INFO] Split:        {args.split}")
-    print(f"[INFO] Saída:        {args.out}")
-    print(f"[INFO] Tokens alvo:  {args.tokens:,}")
-    print(f"[INFO] Idioma:       {args.lang}")
+    print("== Collector (CLI) ==")
+    print(f"[INFO] Dataset:       {args.repo}")
+    print(f"[INFO] Split:         {args.split}")
+    print(f"[INFO] Output:        {args.out}")
+    print(f"[INFO] Target Tokens: {args.tokens:,}")
+    print(f"[INFO] Language:      {args.lang}")
     print("-" * 50)
 
     state = load_state(args.checkpoint)
@@ -121,7 +121,7 @@ def main():
         for row in ds:
             text = clean_text(row.get("text", ""))
 
-            # Filtros básicos
+            # Basic filters
             if len(text) < args.min_chars or len(text) > args.max_chars:
                 continue
 
@@ -133,12 +133,12 @@ def main():
                 if lg != args.lang:
                     continue
 
-            # Tokenização
+            # Tokenization
             ntok = token_count(tok, text)
             if ntok == 0:
                 continue
 
-            # Salvar
+            # Save
             obj = {
                 "text": text,
                 "n_tokens": ntok,
@@ -158,10 +158,10 @@ def main():
             if tokens_total >= args.tokens:
                 break
 
-    print("\n== FINALIZADO ==")
+    print("\n== FINISHED ==")
     print(f"Tokens: {tokens_total:,}")
     print(f"Docs:   {docs_total:,}")
-    print(f"Saída:  {args.out}")
+    print(f"Output: {args.out}")
 
 
 if __name__ == "__main__":
