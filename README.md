@@ -59,37 +59,37 @@ pip install -r requirements.txt
 
 Run with defaults:
 ```bash
-python ETL.py
+python ETL_complete.py
 ```
 
 Specify a different dataset:
 ```bash
-python ETL.py --repo allenai/c4 --split train
+python ETL_complete.py --repo allenai/c4 --split train
 ```
 
 Collect 100M tokens:
 ```bash
-python ETL.py --tokens 100000000
+python ETL_complete.py --tokens 100000000
 ```
 
 Change sampling probability:
 ```bash
-python ETL.py --sample 0.10
+python ETL_complete.py --sample 0.10
 ```
 
 Disable language filtering:
 ```bash
-python ETL.py --lang None
+python ETL_complete.py --lang None
 ```
 
 Set minimum text length:
 ```bash
-python ETL.py --min-chars 300
+python ETL_complete.py --min-chars 300
 ```
 
 Full example:
 ```bash
-python ETL.py \
+python ETL_complete.py \
   --repo HuggingFaceFW/fineweb-edu \
   --split train \
   --tokens 50000000 \
